@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 1502220813}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -189,7 +189,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26011514}
-  m_LocalRotation: {x: 0.05762291, y: 0.92391884, z: -0.34538984, w: 0.1541413}
+  m_LocalRotation: {x: 0.064721376, y: 0.92054963, z: -0.34413034, w: 0.17312986}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -263,7 +263,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 31345940}
-  m_LocalRotation: {x: 0.07082277, y: 0.92435944, z: -0.30953798, w: 0.2114948}
+  m_LocalRotation: {x: 0.07718032, y: 0.9198094, z: -0.30801436, w: 0.23048016}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -342,6 +342,7 @@ GameObject:
   - component: {fileID: 170324518}
   - component: {fileID: 170324517}
   - component: {fileID: 170324516}
+  - component: {fileID: 170324522}
   m_Layer: 0
   m_Name: GolfBall
   m_TagString: golfBall
@@ -356,7 +357,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170324515}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4c099ca6edd4bd94fb9ee6de11c22668, type: 3}
   m_Name: 
@@ -453,12 +454,35 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170324515}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.64, z: 0}
+  m_LocalPosition: {x: 0.8, y: 3.64, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &170324522
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 170324515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b6f644230fb6ec47925073f959bff08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  putt_Strength: 0
+  putt_Strength_Multiplier: 5000
+  max_Putt_Strength: 200000
+  force_Vector: {x: 0, y: 0, z: 0}
+  ready_To_Hit_Velocity: {x: 0.2, y: 0.2, z: 0.2}
+  world_Pos: {x: 0, y: 0, z: 0}
+  mouse_Init: {x: 0, y: 0}
+  mouse_Release: {x: 0, y: 0}
+  mouse_Force_Pythag: {x: 0, y: 0}
+  clicked_Point: {fileID: 0}
+  rb: {fileID: 170324517}
 --- !u!1 &185023691
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,8 +509,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185023691}
-  m_LocalRotation: {x: 0.2174966, y: 0.69088334, z: -0.23135439, w: 0.6495003}
-  m_LocalPosition: {x: -2.9510121, y: 6.6400003, z: 0.5399351}
+  m_LocalRotation: {x: 0.22221354, y: 0.67736536, z: -0.22682773, w: 0.6635861}
+  m_LocalPosition: {x: -2.1707373, y: 6.6400003, z: 0.41799545}
   m_LocalScale: {x: 1, y: 1, z: 0.988}
   m_Children: []
   m_Father: {fileID: 0}
@@ -769,13 +793,43 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506326508}
-  m_LocalRotation: {x: 0.06297435, y: 0.91128445, z: -0.37746638, w: 0.15203345}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.070732, y: 0.9079613, z: -0.3760898, w: 0.1707623}
+  m_LocalPosition: {x: -0.0000001167208, y: 0, z: 0.00000020789344}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1193039862}
   m_Father: {fileID: 2098506894}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &812804196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 812804197}
+  m_Layer: 0
+  m_Name: Hole3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &812804197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 812804196}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 150, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 20}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1026551003
 GameObject:
@@ -1057,6 +1111,67 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 856537c9c782715488d70f0b1b56d54c, type: 3}
+--- !u!850595691 &1502220813
+LightingSettings:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  serializedVersion: 3
+  m_GIWorkflowMode: 1
+  m_EnableBakedLightmaps: 1
+  m_EnableRealtimeLightmaps: 0
+  m_RealtimeEnvironmentLighting: 1
+  m_BounceScale: 1
+  m_AlbedoBoost: 1
+  m_IndirectOutputScale: 1
+  m_UsingShadowmask: 1
+  m_BakeBackend: 1
+  m_LightmapMaxSize: 1024
+  m_BakeResolution: 40
+  m_Padding: 2
+  m_TextureCompression: 1
+  m_AO: 0
+  m_AOMaxDistance: 1
+  m_CompAOExponent: 1
+  m_CompAOExponentDirect: 0
+  m_ExtractAO: 0
+  m_MixedBakeMode: 2
+  m_LightmapsBakeMode: 1
+  m_FilterMode: 1
+  m_LightmapParameters: {fileID: 15204, guid: 0000000000000000f000000000000000, type: 0}
+  m_ExportTrainingData: 0
+  m_TrainingDataDestination: TrainingData
+  m_RealtimeResolution: 2
+  m_ForceWhiteAlbedo: 0
+  m_ForceUpdates: 0
+  m_FinalGather: 0
+  m_FinalGatherRayCount: 256
+  m_FinalGatherFiltering: 1
+  m_PVRCulling: 1
+  m_PVRSampling: 1
+  m_PVRDirectSampleCount: 32
+  m_PVRSampleCount: 512
+  m_PVREnvironmentSampleCount: 256
+  m_PVREnvironmentReferencePointCount: 2048
+  m_LightProbeSampleCountMultiplier: 4
+  m_PVRBounces: 2
+  m_PVRMinBounces: 1
+  m_PVREnvironmentMIS: 1
+  m_PVRFilteringMode: 1
+  m_PVRDenoiserTypeDirect: 1
+  m_PVRDenoiserTypeIndirect: 1
+  m_PVRDenoiserTypeAO: 1
+  m_PVRFilterTypeDirect: 0
+  m_PVRFilterTypeIndirect: 0
+  m_PVRFilterTypeAO: 0
+  m_PVRFilteringGaussRadiusDirect: 1
+  m_PVRFilteringGaussRadiusIndirect: 5
+  m_PVRFilteringGaussRadiusAO: 2
+  m_PVRFilteringAtrousPositionSigmaDirect: 0.5
+  m_PVRFilteringAtrousPositionSigmaIndirect: 2
+  m_PVRFilteringAtrousPositionSigmaAO: 1
 --- !u!1 &1596533418
 GameObject:
   m_ObjectHideFlags: 3
@@ -1309,7 +1424,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2098506892}
   m_LocalRotation: {x: -0, y: -0.5051918, z: -0, w: 0.8630071}
-  m_LocalPosition: {x: -2.9510121, y: 6.6400003, z: 0.5399351}
+  m_LocalPosition: {x: -2.1707373, y: 6.6400003, z: 0.41799545}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 506326510}
