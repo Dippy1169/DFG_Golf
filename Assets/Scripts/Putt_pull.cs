@@ -13,13 +13,20 @@ public class Putt_pull : MonoBehaviour
     private bool is_Moving;
     private float x_Force;
     private float z_Force;
+    private float x_Force_Ratio;
+    private float z_Force_Ratio;
     public Vector3 force_Vector = Vector3.zero;
+    public Vector3 force_Vector_Ratio = Vector3.zero;
+    public Vector2 position_Vector = Vector2.zero;
     public Vector3 ready_To_Hit_Velocity = new Vector3(0.2f, 0.2f, 0.2f);
     public Vector3 world_Pos = Vector3.zero;
+    public Vector3 world_Clicked_Pos = Vector3.zero;
+    public Vector3 ball_Pos = Vector3.zero;
 
     public Vector2 mouse_Init = Vector2.zero;
     public Vector2 mouse_Release = Vector2.zero;
     public Vector2 mouse_Force_Pythag = Vector2.zero;
+    public Vector2 mouse_Force_Delta = Vector2.zero;
 
     private bool click_Trigger = true;
     private bool initial_Mouse_Trigger = true;
@@ -59,25 +66,39 @@ public class Putt_pull : MonoBehaviour
                 if (initial_Mouse_Trigger)
                 {
                     mouse_Init = Input.mousePosition;
+                    Debug.Log("Where we clicked on the actual screen (XY): " + mouse_Init);
                     click_Trigger = true;
                     Vector3 mouse = Input.mousePosition;
-                    Vector3 world_Pos;
                     Ray ray = Camera.main.ScreenPointToRay(mouse);
                     RaycastHit hit;
+                    // Where we clicked in our world
                     if (Physics.Raycast(ray, out hit, 1000f))
                     {
-                        world_Pos = hit.point;
+                        world_Clicked_Pos = hit.point;
                     }
                     else
                     {
-                        world_Pos = Camera.main.ScreenToWorldPoint(mouse);
+                        world_Clicked_Pos = Camera.main.ScreenToWorldPoint(mouse);
                     }
-                    // Instantiate(clicked_Point, world_Pos, Quaternion.identity);
-                    Vector3 castPoint = Camera.main.ScreenToWorldPoint(mouse);
-                    Debug.Log("transform position" + transform.position);
-                    Debug.Log("Where we clicked in the world (castPoint): " + castPoint);
-                    Debug.Log("Rigid body position: " + rb.position);
-                    Debug.Log("World Pos (ray using cast): " + world_Pos);
+                    // Where our ball is in our world
+                    ball_Pos = rb.position;
+                    Debug.Log("Where our ball is in our world: " + ball_Pos);
+                    Debug.Log("Were we clicked in our world: " + world_Clicked_Pos);
+                    // These 2 values will tell us what ratio of force should be applied to the ball in XZ
+                    // This is the direction our ball will travel
+                    force_Vector_Ratio = world_Clicked_Pos - ball_Pos;
+                    x_Force_Ratio = force_Vector_Ratio.x / (Mathf.Abs(force_Vector_Ratio.x) + Mathf.Abs(force_Vector_Ratio.z));
+                    z_Force_Ratio = force_Vector_Ratio.z / (Mathf.Abs(force_Vector_Ratio.x) + Mathf.Abs(force_Vector_Ratio.z));
+
+                    // This is old
+                    //// Instantiate(clicked_Point, world_Pos, Quaternion.identity);
+                    //Vector3 castPoint = Camera.main.ScreenToWorldPoint(mouse);
+                    //Debug.Log("transform position" + transform.position);
+                    //Debug.Log("Where we clicked in the world (castPoint): " + castPoint);
+                    //ball_Pos = rb.position;
+                    //Debug.Log("Rigid body (golf ball) position: " + rb.position);
+                    //Debug.Log("World Pos (ray using cast): " + world_Pos);
+                    //Debug.Log("Click based on ball position: " + (world_Pos - rb.position));
                     initial_Mouse_Trigger = false;
                 }
                 mouse_Release = Input.mousePosition;
@@ -88,20 +109,37 @@ public class Putt_pull : MonoBehaviour
             {
                 if (!Input.GetMouseButton(0))
                 {
-                    mouse_Force_Pythag = new Vector2((mouse_Init.x - mouse_Release.x), (mouse_Init.y - mouse_Release.y));
-                    putt_Strength = puttForce(mouse_Force_Pythag) * putt_Strength_Multiplier;
+                    // Here we should have a force ratio, how much of total force should be applied in x and z. 
+                    // On mouse release we need to make a force to apply. This would be the delta in Y from mouse click to mouse release on the screen
+                    mouse_Force_Delta = new Vector2((mouse_Init.x - mouse_Release.x), (mouse_Init.y - mouse_Release.y));
+
+                    //mouse_Force_Pythag = new Vector2((mouse_Init.x - mouse_Release.x), (mouse_Init.y - mouse_Release.y));
+                    ////putt_Strength = puttForce(mouse_Force_Pythag) * putt_Strength_Multiplier;
+                    // This is our putt strength, how much we put on the ball. Absolute value because we correct that with our force ratios
+                    putt_Strength = Mathf.Abs(mouse_Force_Delta.y) * putt_Strength_Multiplier;
                     if (putt_Strength > max_Putt_Strength)
                     {
                         putt_Strength = max_Putt_Strength;
                         Debug.Log("Max Putt Strength Used");
                     }
                     Debug.Log("Using Putt Strength of: " + putt_Strength + " From Multiplier: " + putt_Strength_Multiplier);
-                    force_Vector = (world_Pos - rb.position);
-                    x_Force = putt_Strength * (force_Vector.x / (Mathf.Abs(force_Vector.x) + Mathf.Abs(force_Vector.y)));
-                    z_Force = putt_Strength * (force_Vector.y / (Mathf.Abs(force_Vector.x) + Mathf.Abs(force_Vector.y)));
+
+                    // Here we combine our putt force we just calculated. Basic calculation: Putt force * Putt force ratio.
+                    x_Force = putt_Strength * x_Force_Ratio;
+                    z_Force = putt_Strength * z_Force_Ratio;
                     force_Vector = new Vector3(x_Force, 0, z_Force);
-                    Debug.Log("Force Vector: " + force_Vector);
+                    Debug.Log("Final Force Vector: " + force_Vector);
                     rb.AddForce(force_Vector);
+
+
+
+                    // Old stuff
+                    ////position_Vector = world_Pos; // (world_Pos - rb.position);
+                    ////x_Force = putt_Strength * (position_Vector.x / (Mathf.Abs(position_Vector.x) + Mathf.Abs(position_Vector.y)));
+                    ////z_Force = putt_Strength * (position_Vector.y / (Mathf.Abs(position_Vector.x) + Mathf.Abs(position_Vector.y)));
+                    ////force_Vector = new Vector3(x_Force, 0, z_Force);
+                    ////Debug.Log("Force Vector: " + force_Vector);
+                    ////rb.AddForce(force_Vector);
                     // if (rb.velocity == Vector3.zero)
                     // System.Threading.Thread.Sleep(100);
                     //while (Mathf.Abs(rb.velocity.x) > ready_To_Hit_Velocity.x && Mathf.Abs(rb.velocity.y) > ready_To_Hit_Velocity.y && Mathf.Abs(rb.velocity.z) > ready_To_Hit_Velocity.z)
@@ -116,6 +154,7 @@ public class Putt_pull : MonoBehaviour
             }
             // It works, now we need to correctly orient our vectors so that our force vectors signs are the same we expect from our rigid body to our click
             // We are translating XY to XZ
+            // Problem seems to be we arent hitting the correct click position and rigid body positon.
 
         }
 
