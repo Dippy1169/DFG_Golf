@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Putt_pull : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class Putt_pull : MonoBehaviour
     private float z_Force;
     private float x_Force_Ratio;
     private float z_Force_Ratio;
+
     public Vector3 force_Vector = Vector3.zero;
     public Vector3 force_Vector_Ratio = Vector3.zero;
     public Vector2 position_Vector = Vector2.zero;
@@ -31,6 +33,11 @@ public class Putt_pull : MonoBehaviour
     private bool click_Trigger = true;
     private bool initial_Mouse_Trigger = true;
 
+    public TMP_Text power_Text;
+    public TMP_Text mouse_Delta;
+    public TMP_Text putt_Count;
+    private int putt_Counter;
+
 
 
     public Transform clicked_Point;
@@ -44,6 +51,7 @@ public class Putt_pull : MonoBehaviour
         is_Moving = false;
         rb = GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0, 0, 0);
+        putt_Counter = 0;
     }
 
     // Update is called once per frame
@@ -90,18 +98,10 @@ public class Putt_pull : MonoBehaviour
                     x_Force_Ratio = force_Vector_Ratio.x / (Mathf.Abs(force_Vector_Ratio.x) + Mathf.Abs(force_Vector_Ratio.z));
                     z_Force_Ratio = force_Vector_Ratio.z / (Mathf.Abs(force_Vector_Ratio.x) + Mathf.Abs(force_Vector_Ratio.z));
 
-                    // This is old
-                    //// Instantiate(clicked_Point, world_Pos, Quaternion.identity);
-                    //Vector3 castPoint = Camera.main.ScreenToWorldPoint(mouse);
-                    //Debug.Log("transform position" + transform.position);
-                    //Debug.Log("Where we clicked in the world (castPoint): " + castPoint);
-                    //ball_Pos = rb.position;
-                    //Debug.Log("Rigid body (golf ball) position: " + rb.position);
-                    //Debug.Log("World Pos (ray using cast): " + world_Pos);
-                    //Debug.Log("Click based on ball position: " + (world_Pos - rb.position));
                     initial_Mouse_Trigger = false;
                 }
                 mouse_Release = Input.mousePosition;
+                mouse_Delta.text = (mouse_Init.y - mouse_Release.y).ToString();
             }
             // If our click Trigger was hit, we should then use the 2 locations we got and setup the restulting force vector to apply to ball.
             // Translating the 2 xy coordinates to 1 vector. This is our putt strength
@@ -113,14 +113,18 @@ public class Putt_pull : MonoBehaviour
                     // On mouse release we need to make a force to apply. This would be the delta in Y from mouse click to mouse release on the screen
                     mouse_Force_Delta = new Vector2((mouse_Init.x - mouse_Release.x), (mouse_Init.y - mouse_Release.y));
 
-                    //mouse_Force_Pythag = new Vector2((mouse_Init.x - mouse_Release.x), (mouse_Init.y - mouse_Release.y));
-                    ////putt_Strength = puttForce(mouse_Force_Pythag) * putt_Strength_Multiplier;
                     // This is our putt strength, how much we put on the ball. Absolute value because we correct that with our force ratios
                     putt_Strength = Mathf.Abs(mouse_Force_Delta.y) * putt_Strength_Multiplier;
                     if (putt_Strength > max_Putt_Strength)
                     {
                         putt_Strength = max_Putt_Strength;
                         Debug.Log("Max Putt Strength Used");
+                    }
+                    if (putt_Strength > 0)
+                    {
+                        power_Text.text = putt_Strength.ToString();
+                        putt_Counter++;
+                        putt_Count.text = putt_Counter.ToString();
                     }
                     Debug.Log("Using Putt Strength of: " + putt_Strength + " From Multiplier: " + putt_Strength_Multiplier);
 
@@ -131,22 +135,6 @@ public class Putt_pull : MonoBehaviour
                     Debug.Log("Final Force Vector: " + force_Vector);
                     rb.AddForce(force_Vector);
 
-
-
-                    // Old stuff
-                    ////position_Vector = world_Pos; // (world_Pos - rb.position);
-                    ////x_Force = putt_Strength * (position_Vector.x / (Mathf.Abs(position_Vector.x) + Mathf.Abs(position_Vector.y)));
-                    ////z_Force = putt_Strength * (position_Vector.y / (Mathf.Abs(position_Vector.x) + Mathf.Abs(position_Vector.y)));
-                    ////force_Vector = new Vector3(x_Force, 0, z_Force);
-                    ////Debug.Log("Force Vector: " + force_Vector);
-                    ////rb.AddForce(force_Vector);
-                    // if (rb.velocity == Vector3.zero)
-                    // System.Threading.Thread.Sleep(100);
-                    //while (Mathf.Abs(rb.velocity.x) > ready_To_Hit_Velocity.x && Mathf.Abs(rb.velocity.y) > ready_To_Hit_Velocity.y && Mathf.Abs(rb.velocity.z) > ready_To_Hit_Velocity.z)
-                    //{
-                    //    Debug.Log("Waiting for Velocity Change");
-                    //    System.Threading.Thread.Sleep(100);
-                    //}
                     is_Moving = true;
                     click_Trigger = false;
                     initial_Mouse_Trigger = true;
@@ -158,41 +146,6 @@ public class Putt_pull : MonoBehaviour
 
         }
 
-
-            //is_Pressed = Input.GetButtonDown("Fire1");
-            
-            //    // Instantiate(clicked_Point, world_Pos, Quaternion.identity);
-            //    Vector3 castPoint = Camera.main.ScreenToWorldPoint(mouse);
-            //    Debug.Log("transform position" + transform.position);
-            //    Debug.Log("Where we clicked in the world (castPoint): " + castPoint);
-            //    Debug.Log("Rigid body position: " + rb.position);
-            //    Debug.Log("World Pos (ray using cast): " + world_Pos);
-            //    // Needed ray cast here instead of just cast point
-            //    force_Vector = (world_Pos - rb.position);
-            //    Debug.Log("Force Vector Ratio: " + force_Vector);
-            //    // Take ratio on X/Z to send Putt Strength
-            //    // Debug.Log((Mathf.Abs(force_Vector.x) + Mathf.Abs(force_Vector.z)));
-            //    // Debug.Log((force_Vector.x / (Mathf.Abs(force_Vector.x) + Mathf.Abs(force_Vector.z))));
-            //    putt_Strength = puttForce(force_Vector) * putt_Strength_Multiplier;
-            //    if (putt_Strength > max_Putt_Strength)
-            //    {
-            //        putt_Strength = max_Putt_Strength;
-            //        Debug.Log("Max Putt Strength Used");
-            //    }
-            //    Debug.Log("Using Putt Strength of: " + putt_Strength + " From Multiplier: " + putt_Strength_Multiplier);
-            //    x_Force = putt_Strength * (force_Vector.x / (Mathf.Abs(force_Vector.x) + Mathf.Abs(force_Vector.z)));
-            //    z_Force = putt_Strength * (force_Vector.z / (Mathf.Abs(force_Vector.x) + Mathf.Abs(force_Vector.z)));
-            //    force_Vector = new Vector3(x_Force, 0, z_Force);
-            //    Debug.Log("Force Vector: " + force_Vector);
-            //    rb.AddForce(new Vector3(x_Force, 0, z_Force));
-            //    // if (rb.velocity == Vector3.zero)
-            //    System.Threading.Thread.Sleep(100);
-            //    while (Mathf.Abs(rb.velocity.x) > ready_To_Hit_Velocity.x && Mathf.Abs(rb.velocity.y) > ready_To_Hit_Velocity.y && Mathf.Abs(rb.velocity.z) > ready_To_Hit_Velocity.z)
-            //    {
-            //        Debug.Log("Waiting for Velocity Change");
-            //        System.Threading.Thread.Sleep(100);
-            //    }
-            //}
     }
 
     private float puttForce(Vector2 force_Vect)

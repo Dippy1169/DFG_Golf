@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class ballInHole : MonoBehaviour
 {
     public int hole_Number;
     public string goto_Hole_Name;
+
+    public TMP_Text par_Number;
+    public TMP_Text hole_Display;
 
     void OnTriggerEnter (Collider col)
     {
