@@ -8,8 +8,7 @@ public class ballInHole : MonoBehaviour
     public int hole_Number;
     public string goto_Hole_Name;
 
-    public TMP_Text par_Number;
-    public TMP_Text hole_Display;
+    // These 2 prolly need to be in a main script for the hole itself. and have the trigger on the base object instead of its own object.
 
     void OnTriggerEnter (Collider col)
     {

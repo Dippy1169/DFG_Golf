@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerReset : MonoBehaviour
 {
 
+    public ActiveHole hole_Script;
 
     void OnTriggerExit(Collider col)
     {
@@ -25,6 +26,11 @@ public class PlayerReset : MonoBehaviour
             col.attachedRigidbody.velocity = Vector3.zero;
             col.attachedRigidbody.angularVelocity = Vector3.zero;
         }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        hole_Script.UpdateHoleInfo();
     }
 }
 

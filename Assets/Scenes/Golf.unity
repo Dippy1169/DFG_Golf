@@ -326,6 +326,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5333474279118113212, guid: d0e43ebc1b8b9d64a9628702d3c848e6, type: 3}
+      propertyPath: hole_Script
+      value: 
+      objectReference: {fileID: 1975149891}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0e43ebc1b8b9d64a9628702d3c848e6, type: 3}
 --- !u!1 &105663499
@@ -1135,7 +1139,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 506326508}
-  m_LocalRotation: {x: 0.07076222, y: 0.9079476, z: -0.37608424, w: 0.17083499}
+  m_LocalRotation: {x: 0.070762195, y: 0.90794754, z: -0.37608415, w: 0.17083506}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1775,6 +1779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hole1
       objectReference: {fileID: 0}
+    - target: {fileID: 6360351544670685019, guid: 856537c9c782715488d70f0b1b56d54c, type: 3}
+      propertyPath: hole_Script
+      value: 
+      objectReference: {fileID: 1971896764}
     - target: {fileID: 6360351544712683937, guid: 856537c9c782715488d70f0b1b56d54c, type: 3}
       propertyPath: par_Number
       value: 
@@ -2275,6 +2283,98 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1728156082
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1728156084}
+  - component: {fileID: 1728156083}
+  m_Layer: 0
+  m_Name: HoleController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1728156083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728156082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 858b87a31b4f3b548bb617f0f12610ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  current_Hole: 0
+  par_Value: 0
+  shot_Count: 0
+--- !u!4 &1728156084
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728156082}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 131.30707, y: -69.51869, z: 103.732925}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1971896762 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6090533392271179877, guid: 856537c9c782715488d70f0b1b56d54c, type: 3}
+  m_PrefabInstance: {fileID: 1431503673}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1971896764
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971896762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43cbf8246e794947b5c6df18f534516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hole_Number: 1
+  par_Value: 3
+  active_Hole: 1
+  hole_Number_TMP: {fileID: 408906160}
+  par_Number_TMP: {fileID: 105663501}
+  putt_Count_TMP: {fileID: 788266179}
+--- !u!1 &1975149889 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2562063081267892983, guid: d0e43ebc1b8b9d64a9628702d3c848e6, type: 3}
+  m_PrefabInstance: {fileID: 99685620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1975149891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975149889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f43cbf8246e794947b5c6df18f534516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hole_Number: 2
+  par_Value: 3
+  active_Hole: 0
+  hole_Number_TMP: {fileID: 408906160}
+  par_Number_TMP: {fileID: 105663501}
+  putt_Count_TMP: {fileID: 788266179}
 --- !u!1 &2018287092
 GameObject:
   m_ObjectHideFlags: 0
