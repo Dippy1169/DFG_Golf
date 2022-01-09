@@ -30,7 +30,7 @@ public class ballInHole : MonoBehaviour
             Debug.Log("mat_Size = " + mat_Size);
             // Vector3 move_Pos = next_Mat.position;
             // Vector3 mat_Size = next_Hole.transform.Find("StartMat").
-            move_Pos.y = move_Pos.y + 0.1f;
+            move_Pos.y = move_Pos.y; // + 0.002f;
             Debug.Log(move_Pos);
             // System.Threading.Thread.Sleep(2000);
             // Disable the bounds

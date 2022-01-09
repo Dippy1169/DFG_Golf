@@ -21,7 +21,7 @@ public class PlayerReset : MonoBehaviour
             Vector3 start_Point = parent.transform.Find("StartMat").position;
             Debug.Log("start_Point: " + start_Point);
             // add +.1 to y so you arent in the ground
-            start_Point.y = start_Point.y + 0.1f;
+            start_Point.y = start_Point.y; // + 0.05f;
             col.transform.position = start_Point;
             col.attachedRigidbody.velocity = Vector3.zero;
             col.attachedRigidbody.angularVelocity = Vector3.zero;
