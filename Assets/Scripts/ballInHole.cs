@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class ballInHole : MonoBehaviour
 {
     public int hole_Number;
     public string goto_Hole_Name;
+    //CinemachineFreeLook vcam;
 
     // These 2 prolly need to be in a main script for the hole itself. and have the trigger on the base object instead of its own object.
 
@@ -35,8 +37,17 @@ public class ballInHole : MonoBehaviour
             // System.Threading.Thread.Sleep(2000);
             // Disable the bounds
             current_Bounds.GetComponent<Collider>().enabled = false;
+            col.attachedRigidbody.velocity = Vector3.zero;
             col.transform.position = move_Pos;
             next_Hole.transform.Find("Bounds").GetComponent<Collider>().enabled = true;
+            //vcam = GetComponent<CinemachineFreeLook>();
+            //Debug.Log("VCAAAAM");
+            //Debug.Log("VCAAAAM");
+            //Debug.Log(vcam);
+            //vcam.m_CommonLens = true;
+            //vcam.m_Lens.FieldOfView = 20;
+            //vcam.m_XAxis.Value = 0;
+
         }
     }
 
@@ -47,5 +58,6 @@ public class ballInHole : MonoBehaviour
         // System.Threading.Thread.Sleep(2000);
 
     }
+
 
 }
