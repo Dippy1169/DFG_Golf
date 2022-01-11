@@ -8,7 +8,9 @@ public class ballInHole : MonoBehaviour
 {
     public int hole_Number;
     public string goto_Hole_Name;
-    //CinemachineFreeLook vcam;
+    public CinemachineFreeLook freeLookCam;
+    public float x_Cam_Value;
+    public float y_Cam_Value;
 
     // These 2 prolly need to be in a main script for the hole itself. and have the trigger on the base object instead of its own object.
 
@@ -40,13 +42,13 @@ public class ballInHole : MonoBehaviour
             col.attachedRigidbody.velocity = Vector3.zero;
             col.transform.position = move_Pos;
             next_Hole.transform.Find("Bounds").GetComponent<Collider>().enabled = true;
-            //vcam = GetComponent<CinemachineFreeLook>();
-            //Debug.Log("VCAAAAM");
-            //Debug.Log("VCAAAAM");
-            //Debug.Log(vcam);
-            //vcam.m_CommonLens = true;
-            //vcam.m_Lens.FieldOfView = 20;
-            //vcam.m_XAxis.Value = 0;
+            Debug.Log("Cam x axis: " + freeLookCam.m_XAxis.Value);
+            Debug.Log("Cam y axis: " + freeLookCam.m_YAxis.Value);
+            freeLookCam.m_XAxis.Value = x_Cam_Value;
+            freeLookCam.m_YAxis.Value = y_Cam_Value;
+            Debug.Log("Setting X Y" + x_Cam_Value + "  " + y_Cam_Value);
+            Debug.Log("Cam x axis: " + freeLookCam.m_XAxis.Value);
+            Debug.Log("Cam y axis: " + freeLookCam.m_YAxis.Value);
 
         }
     }

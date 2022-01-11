@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using Cinemachine;
 
 public class Putt_pull : MonoBehaviour
 {
@@ -38,7 +39,8 @@ public class Putt_pull : MonoBehaviour
     public TMP_Text putt_Count;
     private int putt_Counter;
 
-
+    private float start_Cam_Look;
+    public CinemachineFreeLook freeLookCam;
 
     public Transform clicked_Point;
 
@@ -52,6 +54,21 @@ public class Putt_pull : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.velocity = new Vector3(0, 0, 0);
         putt_Counter = 0;
+        // Get Hole1's game object
+        GameObject start_Hole = GameObject.Find("Hole1");
+        // Get StartMat game object and position
+        GameObject start_Mat_Child = start_Hole.transform.Find("StartMat").gameObject;
+        //Transform next_Mat = start_Hole.transform.Find("StartMat");
+        Vector3 move_Pos = start_Mat_Child.transform.position;
+        this.transform.position = move_Pos;
+        // Get StartLook game object and position
+        GameObject start_Look = start_Hole.transform.Find("StartLook").gameObject;
+        Quaternion start_Rot = start_Look.transform.rotation;
+        Debug.Log("Start Quat: " + start_Look.transform.rotation);
+        this.transform.rotation = start_Rot * Quaternion.Inverse(this.transform.rotation);
+        start_Cam_Look = Vector3.Angle(this.transform.position, this.transform.position - start_Look.transform.position);
+        Debug.Log("Shit SHit Ass " + Vector3.Angle(this.transform.position, this.transform.position - start_Look.transform.position));
+        freeLookCam.m_XAxis.Value = start_Cam_Look;
     }
 
     // Update is called once per frame
