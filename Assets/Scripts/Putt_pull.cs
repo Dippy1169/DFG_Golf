@@ -65,15 +65,17 @@ public class Putt_pull : MonoBehaviour
         GameObject start_Look = start_Hole.transform.Find("StartLook").gameObject;
         Quaternion start_Rot = start_Look.transform.rotation;
         Debug.Log("Start Quat: " + start_Look.transform.rotation);
-        this.transform.rotation = start_Rot * Quaternion.Inverse(this.transform.rotation);
+        // Not really sure why we do this part
+        // this.transform.rotation = start_Rot * Quaternion.Inverse(this.transform.rotation);
         start_Cam_Look = Vector3.Angle(this.transform.position, this.transform.position - start_Look.transform.position);
-        Debug.Log("Shit SHit Ass " + Vector3.Angle(this.transform.position, this.transform.position - start_Look.transform.position));
+        Debug.Log("Angle we should look at " + Vector3.Angle(this.transform.position, this.transform.position - start_Look.transform.position));
         freeLookCam.m_XAxis.Value = start_Cam_Look;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("cam x: " + freeLookCam.m_XAxis.Value);
         if (Mathf.Abs(rb.velocity.x) < ready_To_Hit_Velocity.x && Mathf.Abs(rb.velocity.y) < ready_To_Hit_Velocity.y && Mathf.Abs(rb.velocity.z) < ready_To_Hit_Velocity.z)
         {
             if (is_Moving)
