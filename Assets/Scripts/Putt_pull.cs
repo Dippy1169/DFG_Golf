@@ -80,6 +80,7 @@ public class Putt_pull : MonoBehaviour
         {
             if (is_Moving)
             {
+                rb.velocity = Vector3.zero;
                 Debug.Log("rb should be 0 = " + rb.velocity);
             }
             is_Moving = false;
@@ -174,3 +175,8 @@ public class Putt_pull : MonoBehaviour
         return total_Force;
     }
 }
+
+
+/// Add unity git ignore
+/// Add reset to last shot location instead of start of hole
+
