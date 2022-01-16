@@ -17,6 +17,7 @@ public class Putt_pull : MonoBehaviour
     private float z_Force;
     private float x_Force_Ratio;
     private float z_Force_Ratio;
+    public Vector3 last_Shot_Location;
 
     public Vector3 force_Vector = Vector3.zero;
     public Vector3 force_Vector_Ratio = Vector3.zero;
@@ -80,10 +81,14 @@ public class Putt_pull : MonoBehaviour
         {
             if (is_Moving)
             {
-                rb.velocity = Vector3.zero;
+                //rb.velocity = Vector3.zero;
                 Debug.Log("rb should be 0 = " + rb.velocity);
             }
             is_Moving = false;
+        }
+        else
+        {
+            is_Moving = true;
         }
         if (!is_Moving)
         {
@@ -91,10 +96,12 @@ public class Putt_pull : MonoBehaviour
             // is_Pressed = Input.GetMouseButtonDown(0);
             if (Input.GetMouseButton(0))
             {
+                last_Shot_Location = this.gameObject.transform.position;
+                // Debug.Log("last shot loc: " + last_Shot_Location);
                 if (initial_Mouse_Trigger)
                 {
                     mouse_Init = Input.mousePosition;
-                    Debug.Log("Where we clicked on the actual screen (XY): " + mouse_Init);
+                    // Debug.Log("Where we clicked on the actual screen (XY): " + mouse_Init);
                     click_Trigger = true;
                     Vector3 mouse = Input.mousePosition;
                     Ray ray = Camera.main.ScreenPointToRay(mouse);
@@ -110,8 +117,8 @@ public class Putt_pull : MonoBehaviour
                     }
                     // Where our ball is in our world
                     ball_Pos = rb.position;
-                    Debug.Log("Where our ball is in our world: " + ball_Pos);
-                    Debug.Log("Were we clicked in our world: " + world_Clicked_Pos);
+                    // Debug.Log("Where our ball is in our world: " + ball_Pos);
+                    // Debug.Log("Were we clicked in our world: " + world_Clicked_Pos);
                     // These 2 values will tell us what ratio of force should be applied to the ball in XZ
                     // This is the direction our ball will travel
                     force_Vector_Ratio = world_Clicked_Pos - ball_Pos;
@@ -138,7 +145,7 @@ public class Putt_pull : MonoBehaviour
                     if (putt_Strength > max_Putt_Strength)
                     {
                         putt_Strength = max_Putt_Strength;
-                        Debug.Log("Max Putt Strength Used");
+                        // Debug.Log("Max Putt Strength Used");
                     }
                     if (putt_Strength > 0)
                     {
@@ -146,13 +153,13 @@ public class Putt_pull : MonoBehaviour
                         putt_Counter++;
                         putt_Count.text = putt_Counter.ToString();
                     }
-                    Debug.Log("Using Putt Strength of: " + putt_Strength + " From Multiplier: " + putt_Strength_Multiplier);
+                    // Debug.Log("Using Putt Strength of: " + putt_Strength + " From Multiplier: " + putt_Strength_Multiplier);
 
                     // Here we combine our putt force we just calculated. Basic calculation: Putt force * Putt force ratio.
                     x_Force = putt_Strength * x_Force_Ratio;
                     z_Force = putt_Strength * z_Force_Ratio;
                     force_Vector = new Vector3(x_Force, 0, z_Force);
-                    Debug.Log("Final Force Vector: " + force_Vector);
+                    // Debug.Log("Final Force Vector: " + force_Vector);
                     rb.AddForce(force_Vector);
 
                     is_Moving = true;
@@ -177,6 +184,5 @@ public class Putt_pull : MonoBehaviour
 }
 
 
-/// Add unity git ignore
-/// Add reset to last shot location instead of start of hole
+/// pause menus makes us still able to shoot
 

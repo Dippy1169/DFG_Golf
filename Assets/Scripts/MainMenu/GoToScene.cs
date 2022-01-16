@@ -13,6 +13,12 @@ public class GoToScene : MonoBehaviour
         Debug.Log("Scene Change");
     }
 
+    public void RemoveScene(string scene_To_Remove)
+    {
+        Debug.Log("Removing Scene: " + scene_To_Remove);
+        SceneManager.UnloadSceneAsync(scene_To_Remove);
+    }
+
     public void Exit()
     {
         Debug.Log("Exit Pressed");
