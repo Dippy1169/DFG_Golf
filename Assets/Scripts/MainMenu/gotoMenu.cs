@@ -20,6 +20,9 @@ public class gotoMenu : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("esc key pressed");
+            GameObject golfBall = GameObject.FindGameObjectsWithTag("golfBall")[0];
+            //EventSystem eventSystem = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+            //eventSystem.enabled = false;
             if (!SceneManager.GetSceneByName(scene_Name).isLoaded)
                 {
                 SceneManager.LoadScene(scene_Name, LoadSceneMode.Additive);
