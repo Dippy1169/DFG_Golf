@@ -19,6 +19,15 @@ public class GoToScene : MonoBehaviour
         SceneManager.UnloadSceneAsync(scene_To_Remove);
     }
 
+    public void AddScene(string scene_To_Add)
+    {
+        Debug.Log("Adding Scene: " + scene_To_Add);
+        if (!SceneManager.GetSceneByName(scene_To_Add).isLoaded)
+        {
+            SceneManager.LoadScene(scene_To_Add, LoadSceneMode.Additive);
+        }
+    }
+
     public void Exit()
     {
         Debug.Log("Exit Pressed");
